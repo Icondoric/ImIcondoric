@@ -23,7 +23,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   <header class="app-header" :class="{ 'header-scrolled': isScrolled }">
     <div class="header-inner">
       <!-- Logo / Brand -->
-      <a href="#inicio" class="brand" id="nav-brand">Icondoric</a>
+      <a href="#inicio" class="brand" id="nav-brand">Soy Icondoric</a>
 
       <!-- Navigation -->
       <nav class="nav-links" role="navigation" aria-label="Navegación principal">

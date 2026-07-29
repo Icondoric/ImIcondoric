@@ -4,19 +4,14 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
 
 <template>
   <section id="inicio" class="hero-section">
-<section id="inicio" class="hero-section">
     <!-- Avatar -->
     <div class="avatar-wrapper animate-fade-up">
       <div class="avatar-container glow-pulse" id="hero-avatar">
-        <!-- ANTES: Aquí estaba el <div class="avatar-placeholder"> con el <svg> -->
-        
-        <!-- AHORA: Reemplazamos todo lo anterior por la etiqueta <img> -->
         <img 
           src="/me2.png" 
           alt="Ivan Condori Choquehuanca" 
           class="avatar-image"
         />
-
       </div>
     </div>
 
@@ -38,7 +33,7 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
     <div class="hero-bio animate-fade-up-delay-5" id="sobre-mi">
       <p>
         <strong>
-          ¡Hola! Soy Ivan Condori Choquehuanca (Icondoric) de La Paz, Bolivia.
+          ¡Hola! Soy Icondoric de La Paz, Bolivia.
           Me apasiona la creación de contenido, el gimnasio, la música y el desarrollo de software.
           ¡Siéntete libre de ponerte en contacto o revisar mis proyectos a continuación!
         </strong>
@@ -48,6 +43,7 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
 </template>
 
 <style scoped>
+
 .hero-section {
   min-height: 100vh;
   display: flex;
@@ -61,12 +57,13 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
 
 /* Avatar */
 .avatar-wrapper {
-  margin-bottom: 0.25rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 }
 
 .avatar-container {
-  width: 130px;
-  height: 130px;
+  width: 230px;
+  height: 230px;
   border-radius: 50%;
   border: 2px solid var(--color-border-hover);
   background: var(--color-bg-card);
@@ -78,6 +75,15 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
   margin: 0 auto;
   transition: border-color 0.3s ease;
 }
+
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 50%;
+}
+
 
 .avatar-container::before {
   content: '';
@@ -98,12 +104,6 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
   to { transform: rotate(360deg); }
 }
 
-.avatar-placeholder {
-  color: var(--color-text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 /* Hero Text */
 .hero-text {
@@ -113,7 +113,7 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
 }
 
 .hero-brand {
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-size: clamp(2.5rem, 8vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--color-text-primary);
@@ -125,29 +125,32 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
   font-weight: 400;
   color: var(--color-text-secondary);
   letter-spacing: 0.02em;
+  margin-bottom: 1rem;
 }
 
 .hero-roles {
-  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  font-size: clamp(1rem, 1.5vw, 2rem);
   color: var(--color-text-muted);
   letter-spacing: 0.03em;
-  max-width: 520px;
+  max-width: 550px;
 }
 
 /* Social */
 .hero-socials {
-  margin: 0.25rem 0;
+  margin-top: 0.25rem;
+  margin-bottom: 10rem;
 }
 
 /* Bio */
 .hero-bio {
-  max-width: 620px;
-  padding: 1.75rem 2rem;
+  max-width: 600px;
+  padding: 3rem 3rem;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   position: relative;
   overflow: hidden;
+  margin-top: 2rem;
 }
 
 .hero-bio::before {
@@ -163,7 +166,7 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
 }
 
 .hero-bio p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.8;
   color: var(--color-text-secondary);
   position: relative;
@@ -172,6 +175,6 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
 
 .hero-bio strong {
   color: var(--color-text-primary);
-  font-weight: 600;
+  font-weight: 800;
 }
 </style>
