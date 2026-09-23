@@ -2,6 +2,7 @@
 import AppHeader from '@widgets/header/ui/AppHeader.vue'
 import HeroSection from '@widgets/hero/ui/HeroSection.vue'
 import PortfolioSection from '@widgets/portfolio/ui/PortfolioSection.vue'
+import ContactSection from '@widgets/contact/ui/ContactSection.vue'
 import AppFooter from '@widgets/footer/ui/AppFooter.vue'
 </script>
 
@@ -12,6 +13,7 @@ import AppFooter from '@widgets/footer/ui/AppFooter.vue'
     <main>
       <HeroSection />
       <PortfolioSection />
+      <ContactSection />
     </main>
 
     <AppFooter />

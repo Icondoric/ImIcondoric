@@ -25,7 +25,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     await resend.emails.send({
       from: 'Portafolio Icondoric <onboarding@resend.dev>',
-      to: process.env.CONTACT_EMAIL ?? '',
+      to: process.env.CONTACT_EMAIL || 'iconhu.icc@gmail.com',
       subject: `Nuevo mensaje de contacto de ${name}`,
       html: `
         <h2>Nuevo mensaje desde tu portafolio</h2>

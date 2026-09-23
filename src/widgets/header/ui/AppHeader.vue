@@ -8,7 +8,6 @@ const navLinks = [
   { label: 'SOBRE MÍ', href: '#sobre-mi' },
   { label: 'PORTAFOLIO', href: '#portafolio' },
   { label: 'CONTACTO', href: '#contacto' },
-  { label: 'CV', href: '#' },
 ]
 
 const handleScroll = () => {

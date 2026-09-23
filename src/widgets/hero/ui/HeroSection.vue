@@ -22,7 +22,7 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
       <h1 class="hero-brand animate-fade-up-delay-1">Icondoric</h1>
       <p class="hero-fullname animate-fade-up-delay-2">Ivan Condori Choquehuanca</p>
       <p class="hero-roles animate-fade-up-delay-3">
-        Ingeniero de Sistemas, Desarrollador de Software &amp; Creador de Contenido
+        Ingeniero de Sistemas, Desarrollador de Software &amp; Analista de Datos
       </p>
     </div>
 
@@ -46,7 +46,7 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
       <p>
         <strong>
           ¡Hola! Soy Icondoric de La Paz, Bolivia.
-          Me apasiona la creación de contenido, el gimnasio, la música y el desarrollo de software.
+          Me apasiona la analítica de datos, el gimnasio, la música y el desarrollo de software.
           ¡Siéntete libre de ponerte en contacto o revisar mis proyectos a continuación!
         </strong>
       </p>
