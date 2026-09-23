@@ -31,8 +31,18 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
       <SocialIcon />
     </div>
 
+    <!-- Sobre mí: anchor separado del card para compensar el header fijo -->
+    <span id="sobre-mi" class="sobre-mi-anchor" aria-hidden="true" />
+
+    <!-- Sobre mí: encabezado al estilo de PortfolioSection -->
+    <div class="sobre-mi-header animate-fade-up-delay-5">
+      <h2 class="sobre-mi-title"># Sobre mí</h2>
+      <p class="sobre-mi-subtitle">## Quién soy</p>
+      <div class="sobre-mi-divider" />
+    </div>
+
     <!-- Bio -->
-    <div id="sobre-mi" class="hero-bio animate-fade-up-delay-5">
+    <div class="hero-bio animate-fade-up-delay-5">
       <p>
         <strong>
           ¡Hola! Soy Icondoric de La Paz, Bolivia.
@@ -141,6 +151,44 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
 .hero-socials {
   margin-top: 0.25rem;
   margin-bottom: 10rem;
+}
+
+/* Anchor invisible con offset del header fijo (≈72px) */
+.sobre-mi-anchor {
+  display: block;
+  scroll-margin-top: 80px;
+}
+
+/* Encabezado — mismo patrón que .portfolio-header */
+.sobre-mi-header {
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+  margin-bottom: -0.5rem;
+}
+
+.sobre-mi-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  font-family: 'Courier New', monospace;
+}
+
+.sobre-mi-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-top: 0.4rem;
+  font-family: 'Courier New', monospace;
+}
+
+.sobre-mi-divider {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-accent), transparent);
+  margin-top: 1.25rem;
+  border-radius: 1px;
 }
 
 /* Bio */
