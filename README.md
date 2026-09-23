@@ -2,6 +2,8 @@
 
 Personal portfolio of Ivan Condori Choquehuanca (Icondoric), built with Vue 3, TypeScript, Vite, and Tailwind CSS v4. Deployed on Vercel with serverless functions for the contact form.
 
+Live: https://icondoric.vercel.app
+
 ## Tech Stack
 
 - **Frontend**: Vue 3 (Composition API, `<script setup>`)
