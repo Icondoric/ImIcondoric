@@ -3,7 +3,7 @@ const year = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="app-footer" id="footer">
+  <footer id="footer" class="app-footer">
     <p class="footer-text">
       <em>&copy; {{ year }} Ivan Condori Choquehuanca (Icondoric)</em>
     </p>

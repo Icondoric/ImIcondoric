@@ -2,18 +2,44 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ─── SEO Primario ─── -->
     <title>Icondoric — Ivan Condori Choquehuanca | Desarrollador de Software</title>
-    <meta name="description" content="Portafolio personal de Ivan Condori Choquehuanca (Icondoric), Ingeniero de Sistemas, Desarrollador de Software y Creador de Contenido de La Paz, Bolivia." />
-    <meta name="keywords" content="Icondoric, Ivan Condori, desarrollador software, Vue.js, TypeScript, portafolio" />
+    <meta name="description" content="Portafolio de Ivan Condori Choquehuanca (Icondoric), Ingeniero de Sistemas y Desarrollador de Software de La Paz, Bolivia. Proyectos con Vue.js, TypeScript y tecnología moderna." />
     <meta name="author" content="Ivan Condori Choquehuanca" />
-    <meta property="og:title" content="Icondoric — Ivan Condori Choquehuanca" />
-    <meta property="og:description" content="Portafolio personal de Ivan Condori Choquehuanca, Ingeniero de Sistemas y Desarrollador de Software." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://icondoric.vercel.app/" />
+
+    <!-- ─── Open Graph (redes sociales) ─── -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://icondoric.vercel.app/" />
+    <meta property="og:title" content="Icondoric — Ivan Condori Choquehuanca" />
+    <meta property="og:description" content="Portafolio de Ivan Condori Choquehuanca, Ingeniero de Sistemas y Desarrollador de Software de La Paz, Bolivia." />
+    <meta property="og:image" content="https://icondoric.vercel.app/og-image.png" />
+    <meta property="og:locale" content="es_BO" />
+    <meta property="og:site_name" content="Icondoric" />
+
+    <!-- ─── Twitter Card ─── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Icondoric — Ivan Condori Choquehuanca" />
+    <meta name="twitter:description" content="Portafolio de Ivan Condori Choquehuanca, Ingeniero de Sistemas y Desarrollador de Software." />
+    <meta name="twitter:image" content="https://icondoric.vercel.app/og-image.png" />
+
+    <!-- ─── Favicon ─── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- ─── Fuente: Inter (preconnect + preload para evitar FOUT) ─── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!--
+      Solo cargamos los pesos realmente usados: 400, 500, 700
+      display=swap evita bloqueo de render (LCP)
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="app"></div>

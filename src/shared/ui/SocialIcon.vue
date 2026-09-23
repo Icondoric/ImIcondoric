@@ -43,15 +43,15 @@ const socialLinks = [
   <div class="social-row">
     <a
       v-for="link in socialLinks"
-      :key="link.id"
       :id="`social-${link.id}`"
+      :key="link.id"
       :href="link.href"
       :aria-label="link.label"
       class="social-icon"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span v-html="link.icon" class="icon-inner" />
+      <span class="icon-inner" v-html="link.icon" />
       <span class="tooltip">{{ link.label }}</span>
     </a>
   </div>

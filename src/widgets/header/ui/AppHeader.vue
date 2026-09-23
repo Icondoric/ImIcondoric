@@ -23,15 +23,15 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   <header class="app-header" :class="{ 'header-scrolled': isScrolled }">
     <div class="header-inner">
       <!-- Logo / Brand -->
-      <a href="#inicio" class="brand" id="nav-brand">Soy Icondoric</a>
+      <a id="nav-brand" href="#inicio" class="brand">Soy Icondoric</a>
 
       <!-- Navigation -->
       <nav class="nav-links" role="navigation" aria-label="Navegación principal">
         <a
           v-for="link in navLinks"
+          :id="`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`"
           :key="link.label"
           :href="link.href"
-          :id="`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`"
           class="nav-link"
         >
           {{ link.label }}

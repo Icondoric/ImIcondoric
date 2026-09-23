@@ -6,11 +6,13 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
   <section id="inicio" class="hero-section">
     <!-- Avatar -->
     <div class="avatar-wrapper animate-fade-up">
-      <div class="avatar-container glow-pulse" id="hero-avatar">
-        <img 
-          src="/me2.png" 
-          alt="Ivan Condori Choquehuanca" 
+      <div id="hero-avatar" class="avatar-container glow-pulse">
+        <img
+          src="/me2.png"
+          alt="Ivan Condori Choquehuanca"
           class="avatar-image"
+          fetchpriority="high"
+          decoding="async"
         />
       </div>
     </div>
@@ -30,7 +32,7 @@ import SocialIcon from '@shared/ui/SocialIcon.vue'
     </div>
 
     <!-- Bio -->
-    <div class="hero-bio animate-fade-up-delay-5" id="sobre-mi">
+    <div id="sobre-mi" class="hero-bio animate-fade-up-delay-5">
       <p>
         <strong>
           ¡Hola! Soy Icondoric de La Paz, Bolivia.

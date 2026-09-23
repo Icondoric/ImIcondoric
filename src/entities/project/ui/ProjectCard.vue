@@ -19,7 +19,7 @@ defineProps<{
         </svg>
         <span>Vista previa del proyecto</span>
       </div>
-      <img v-else :src="project.imageUrl" :alt="project.title" class="project-image" />
+      <img v-else :src="project.imageUrl" :alt="project.title" class="project-image" loading="lazy" />
     </div>
 
     <!-- Content -->

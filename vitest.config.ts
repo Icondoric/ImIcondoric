@@ -7,6 +7,9 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
+    // Solo ejecutar tests unitarios; los e2e se corren con `npm run test:e2e`
+    include: ['tests/unit/**/*.spec.ts', 'src/**/*.spec.ts'],
+    exclude: ['tests/e2e/**', 'node_modules/**'],
   },
   resolve: {
     alias: {
