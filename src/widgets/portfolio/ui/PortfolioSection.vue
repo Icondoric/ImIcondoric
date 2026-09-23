@@ -4,32 +4,20 @@ import type { Project } from '@entities/project/model/types'
 
 const projects: Project[] = [
   {
-    id: 'project-1',
-    title: 'Proyecto 1',
-    description: 'Descripción del proyecto. Una aplicación moderna que resuelve un problema real con tecnología de vanguardia.',
-    siteUrl: '#',
-    tags: ['Vue.js', 'TypeScript'],
+    id: 'evaluacion-perfiles',
+    title: 'Sistema de Evaluación de Perfiles (PLN + ML)',
+    description:
+      'Sistema de evaluación y clasificación de candidatos mediante Procesamiento de Lenguaje Natural y Machine Learning (Ridge Regression). Integra extracción inteligente de CVs en PDF con Gemini API, panel institucional configurable y motor de recomendaciones.',
+    githubUrl: 'https://github.com/PROJECTS2026EM/EVALUACION_PERFILES',
+    tags: ['FastAPI', 'Python', 'Vue 3', 'NLP / spaCy', 'Machine Learning', 'Gemini API', 'Supabase'],
   },
   {
-    id: 'project-2',
-    title: 'Proyecto 2',
-    description: 'Descripción del proyecto. Plataforma serverless escalable con integración de APIs externas y diseño responsivo.',
-    siteUrl: '#',
-    tags: ['Node.js', 'Vercel'],
-  },
-  {
-    id: 'project-3',
-    title: 'Proyecto 3',
-    description: 'Descripción del proyecto. Herramienta de productividad con interfaz intuitiva y experiencia de usuario excepcional.',
-    siteUrl: '#',
-    tags: ['Vite', 'Tailwind CSS'],
-  },
-  {
-    id: 'project-4',
-    title: 'Proyecto 4',
-    description: 'Descripción del proyecto. Sistema con arquitectura de componentes bien definida y cobertura de tests completa.',
-    siteUrl: '#',
-    tags: ['Playwright', 'Vitest'],
+    id: 'cvmorfosis',
+    title: 'CVMorfosis — ATS & Harvard CV Builder',
+    description:
+      'Generador de currículum vitae profesional optimizado para sistemas de seguimiento de candidatos (ATS) y estandarizado con el formato Harvard. Incluye múltiples plantillas ejecutivas y un servicio backend dedicado con Puppeteer para exportación PDF de alta precisión.',
+    githubUrl: 'https://github.com/Icondoric/CVMorfosis',
+    tags: ['Vue 3', 'TypeScript', 'Node.js', 'Express', 'Puppeteer', 'Tailwind CSS'],
   },
 ]
 </script>

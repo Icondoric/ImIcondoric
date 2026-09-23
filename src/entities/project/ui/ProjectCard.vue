@@ -29,9 +29,26 @@ defineProps<{
       </div>
       <h2 class="project-title">{{ project.title }}</h2>
       <p class="project-description">{{ project.description }}</p>
-      <a :href="project.siteUrl || '#'" class="project-cta" target="_blank" rel="noopener noreferrer">
-        [VISITAR SITIO WEB]
-      </a>
+      <div class="project-actions">
+        <a
+          v-if="project.githubUrl"
+          :href="project.githubUrl"
+          class="project-cta project-cta--github"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          [VER EN GITHUB]
+        </a>
+        <a
+          v-if="project.siteUrl && project.siteUrl !== '#'"
+          :href="project.siteUrl"
+          class="project-cta project-cta--site"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          [VISITAR SITIO WEB]
+        </a>
+      </div>
     </div>
   </article>
 </template>
@@ -132,13 +149,21 @@ defineProps<{
   line-height: 1.7;
 }
 
-.project-cta {
-  display: inline-block;
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-top: 0.5rem;
-  padding: 0.6rem 1.2rem;
+}
+
+.project-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-accent-light);
   border: 1px solid rgba(124, 106, 247, 0.4);
