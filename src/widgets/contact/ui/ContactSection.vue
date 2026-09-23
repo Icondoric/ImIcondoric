@@ -1,22 +1,12 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { contactSchema, type ContactFormData } from '@shared/lib/validators'
 
-const form = reactive<ContactFormData>({
+const form = reactive({
   name: '',
-  email: '',
+  subject: '',
   message: '',
 })
 
-const errors = reactive<Record<string, string>>({
-  name: '',
-  email: '',
-  message: '',
-})
-
-const isSubmitting = ref(false)
-const submitSuccess = ref(false)
-const submitError = ref('')
 const copied = ref(false)
 
 const copyEmail = async () => {
@@ -27,64 +17,55 @@ const copyEmail = async () => {
       copied.value = false
     }, 2000)
   } catch {
-    // Fallback if clipboard API is unavailable
+    // Fallback if clipboard API is blocked
   }
 }
 
-const validateField = (field: keyof ContactFormData) => {
-  const result = contactSchema.safeParse(form)
-  if (result.success) {
-    errors[field] = ''
-    return true
+const buildMailtoUrl = () => {
+  const subject = form.subject.trim()
+    ? form.subject.trim()
+    : `Contacto desde Portafolio — ${form.name.trim() || 'Nuevo mensaje'}`
+
+  let body = form.message.trim()
+  if (form.name.trim()) {
+    body = `De: ${form.name.trim()}\n\n${body}`
   }
-  const fieldErrors = result.error.flatten().fieldErrors
-  errors[field] = fieldErrors[field]?.[0] || ''
-  return !errors[field]
+
+  const params = new URLSearchParams()
+  if (subject) params.set('subject', subject)
+  if (body) params.set('body', body)
+
+  const queryString = params.toString()
+  return `mailto:iconhu.icc@gmail.com${queryString ? `?${queryString}` : ''}`
 }
 
-const handleSubmit = async () => {
-  submitError.value = ''
-  const result = contactSchema.safeParse(form)
+const buildGmailUrl = () => {
+  const subject = form.subject.trim()
+    ? form.subject.trim()
+    : `Contacto desde Portafolio — ${form.name.trim() || 'Nuevo mensaje'}`
 
-  if (!result.success) {
-    const fieldErrors = result.error.flatten().fieldErrors
-    errors.name = fieldErrors.name?.[0] || ''
-    errors.email = fieldErrors.email?.[0] || ''
-    errors.message = fieldErrors.message?.[0] || ''
-    return
+  let body = form.message.trim()
+  if (form.name.trim()) {
+    body = `De: ${form.name.trim()}\n\n${body}`
   }
 
-  isSubmitting.value = true
+  const params = new URLSearchParams({
+    view: 'cm',
+    fs: '1',
+    to: 'iconhu.icc@gmail.com',
+  })
+  if (subject) params.set('su', subject)
+  if (body) params.set('body', body)
 
-  try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    })
-
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      throw new Error(data.error || 'Error al enviar el mensaje')
-    }
-
-    submitSuccess.value = true
-    form.name = ''
-    form.email = ''
-    form.message = ''
-  } catch (err: unknown) {
-    submitError.value =
-      err instanceof Error
-        ? err.message
-        : 'No se pudo enviar el mensaje. Por favor escríbeme directamente a iconhu.icc@gmail.com'
-  } finally {
-    isSubmitting.value = false
-  }
+  return `https://mail.google.com/mail/?${params.toString()}`
 }
 
-const resetForm = () => {
-  submitSuccess.value = false
-  submitError.value = ''
+const openGmail = () => {
+  window.open(buildGmailUrl(), '_blank', 'noopener,noreferrer')
+}
+
+const openDefaultMail = () => {
+  window.location.href = buildMailtoUrl()
 }
 </script>
 
@@ -97,7 +78,7 @@ const resetForm = () => {
     </div>
 
     <div class="contact-grid">
-      <!-- Direct Email Card -->
+      <!-- Direct Contact Card -->
       <div class="contact-direct-card">
         <div class="direct-icon-box">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -106,33 +87,34 @@ const resetForm = () => {
           </svg>
         </div>
         <h3 class="direct-title">Contacto Directo</h3>
-        <p class="direct-desc">¿Tienes una propuesta, consulta o proyecto en mente? Escríbeme directamente a:</p>
-        <a href="mailto:iconhu.icc@gmail.com" class="direct-email-link">iconhu.icc@gmail.com</a>
+        <p class="direct-desc">
+          Escríbeme directamente. Al hacer clic se abrirá Gmail listo con mi dirección en el destinatario para que no tengas que escribirlo manualmente:
+        </p>
+        <a :href="buildMailtoUrl()" class="direct-email-link">iconhu.icc@gmail.com</a>
 
         <div class="direct-actions">
-          <button type="button" class="btn-direct-copy" @click="copyEmail">
+          <a
+            :href="buildGmailUrl()"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-action btn-gmail"
+          >
+            [ABRIR EN GMAIL]
+          </a>
+          <button type="button" class="btn-action btn-secondary" @click="copyEmail">
             {{ copied ? '¡COPIADO!' : '[COPIAR CORREO]' }}
           </button>
-          <a href="mailto:iconhu.icc@gmail.com" class="btn-direct-send">
-            [ABRIR GMAIL]
-          </a>
         </div>
       </div>
 
-      <!-- Contact Form Card -->
+      <!-- Quick Composer Card -->
       <div class="contact-form-card">
-        <div v-if="submitSuccess" class="form-success">
-          <div class="success-icon">✓</div>
-          <h3 class="success-title">¡Mensaje Enviado!</h3>
-          <p class="success-desc">
-            Gracias por escribir. Te responderé lo antes posible a tu correo electrónico.
-          </p>
-          <button type="button" class="btn-primary" @click="resetForm">
-            [ENVIAR OTRO MENSAJE]
-          </button>
-        </div>
+        <h3 class="composer-title">Redactar Mensaje Rápido</h3>
+        <p class="composer-desc">
+          Puedes escribir aquí tu nombre y mensaje. Al presionar el botón se abrirá tu correo con todos los datos prellenados y listos para enviar:
+        </p>
 
-        <form v-else class="contact-form" @submit.prevent="handleSubmit">
+        <form class="contact-form" @submit.prevent="openGmail">
           <div class="form-group">
             <label for="contact-name" class="form-label">Tu Nombre</label>
             <input
@@ -140,25 +122,19 @@ const resetForm = () => {
               v-model="form.name"
               type="text"
               class="form-input"
-              :class="{ 'has-error': errors.name }"
               placeholder="Ej. Alex Pérez"
-              @blur="validateField('name')"
             />
-            <span v-if="errors.name" class="error-msg">{{ errors.name }}</span>
           </div>
 
           <div class="form-group">
-            <label for="contact-email" class="form-label">Tu Correo Electrónico</label>
+            <label for="contact-subject" class="form-label">Asunto (Opcional)</label>
             <input
-              id="contact-email"
-              v-model="form.email"
-              type="email"
+              id="contact-subject"
+              v-model="form.subject"
+              type="text"
               class="form-input"
-              :class="{ 'has-error': errors.email }"
-              placeholder="tu@correo.com"
-              @blur="validateField('email')"
+              placeholder="Ej. Consulta sobre proyecto / Oportunidad laboral"
             />
-            <span v-if="errors.email" class="error-msg">{{ errors.email }}</span>
           </div>
 
           <div class="form-group">
@@ -168,24 +144,25 @@ const resetForm = () => {
               v-model="form.message"
               rows="4"
               class="form-textarea"
-              :class="{ 'has-error': errors.message }"
-              placeholder="Cuéntame sobre tu proyecto, consulta o idea..."
-              @blur="validateField('message')"
+              placeholder="Hola Ivan, te escribo para..."
             />
-            <span v-if="errors.message" class="error-msg">{{ errors.message }}</span>
           </div>
 
-          <div v-if="submitError" class="submit-error">
-            {{ submitError }}
+          <div class="form-buttons">
+            <button
+              type="submit"
+              class="btn-action btn-gmail btn-large"
+            >
+              [ENVIAR CON GMAIL]
+            </button>
+            <button
+              type="button"
+              class="btn-action btn-secondary btn-large"
+              @click="openDefaultMail"
+            >
+              [ENVIAR CON OTRO CORREO]
+            </button>
           </div>
-
-          <button
-            type="submit"
-            class="btn-primary btn-submit"
-            :disabled="isSubmitting"
-          >
-            {{ isSubmitting ? 'ENVIANDO...' : '[ENVIAR MENSAJE]' }}
-          </button>
         </form>
       </div>
     </div>
@@ -267,20 +244,22 @@ const resetForm = () => {
   justify-content: center;
 }
 
-.direct-title {
-  font-size: 1.25rem;
+.direct-title,
+.composer-title {
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--color-text-primary);
 }
 
-.direct-desc {
+.direct-desc,
+.composer-desc {
   font-size: 0.925rem;
   color: var(--color-text-secondary);
   line-height: 1.6;
 }
 
 .direct-email-link {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--color-accent-light);
   text-decoration: none;
@@ -302,49 +281,15 @@ const resetForm = () => {
   padding-top: 1rem;
 }
 
-.btn-direct-copy,
-.btn-direct-send {
-  padding: 0.55rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: var(--radius-btn);
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  font-family: inherit;
-}
-
-.btn-direct-copy {
-  background: transparent;
-  color: var(--color-accent-light);
-  border: 1px solid rgba(124, 106, 247, 0.4);
-}
-
-.btn-direct-copy:hover {
-  background: var(--color-accent-glow);
-  border-color: var(--color-accent);
-  color: #ffffff;
-}
-
-.btn-direct-send {
-  background: var(--color-accent);
-  color: #ffffff;
-  border: 1px solid var(--color-accent);
-}
-
-.btn-direct-send:hover {
-  background: var(--color-accent-light);
-  box-shadow: 0 0 16px var(--color-accent-glow);
-}
-
-/* Form Card */
+/* Composer Card */
 .contact-form-card {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   transition: border-color 0.3s ease;
 }
 
@@ -355,17 +300,18 @@ const resetForm = () => {
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.15rem;
+  margin-top: 0.5rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .form-label {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -391,82 +337,62 @@ const resetForm = () => {
   box-shadow: 0 0 0 2px var(--color-accent-glow);
 }
 
-.form-input.has-error,
-.form-textarea.has-error {
-  border-color: #ef4444;
+.form-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
 }
 
-.error-msg {
+@media (min-width: 480px) {
+  .form-buttons {
+    flex-direction: row;
+  }
+}
+
+/* Buttons */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.15rem;
   font-size: 0.75rem;
-  color: #f87171;
-}
-
-.submit-error {
-  font-size: 0.85rem;
-  color: #f87171;
-  background: rgba(239, 68, 68, 0.1);
-  padding: 0.75rem;
-  border-radius: var(--radius-btn);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-.btn-primary {
-  padding: 0.75rem 1.4rem;
-  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffffff;
-  background: var(--color-accent);
-  border: 1px solid var(--color-accent);
   border-radius: var(--radius-btn);
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.25s ease;
   font-family: inherit;
-  width: fit-content;
+  border: 1px solid transparent;
 }
 
-.btn-primary:hover:not(:disabled) {
+.btn-large {
+  flex: 1;
+  padding: 0.75rem 1.1rem;
+}
+
+.btn-gmail {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+}
+
+.btn-gmail:hover {
   background: var(--color-accent-light);
-  box-shadow: 0 0 20px var(--color-accent-glow);
+  box-shadow: 0 0 18px var(--color-accent-glow);
 }
 
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.btn-secondary {
+  background: transparent;
+  color: var(--color-accent-light);
+  border-color: rgba(124, 106, 247, 0.4);
 }
 
-.form-success {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 2.5rem 1rem;
-  gap: 1rem;
-}
-
-.success-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(34, 197, 94, 0.15);
-  color: #4ade80;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.success-title {
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-}
-
-.success-desc {
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
-  max-width: 400px;
+.btn-secondary:hover {
+  background: var(--color-accent-glow);
+  border-color: var(--color-accent);
+  color: #ffffff;
 }
 </style>
