@@ -60,10 +60,6 @@ const buildGmailUrl = () => {
   return `https://mail.google.com/mail/?${params.toString()}`
 }
 
-const openGmail = () => {
-  window.open(buildGmailUrl(), '_blank', 'noopener,noreferrer')
-}
-
 const openDefaultMail = () => {
   window.location.href = buildMailtoUrl()
 }
@@ -114,7 +110,7 @@ const openDefaultMail = () => {
           Puedes escribir aquí tu nombre y mensaje. Al presionar el botón se abrirá tu correo con todos los datos prellenados y listos para enviar:
         </p>
 
-        <form class="contact-form" @submit.prevent="openGmail">
+        <form class="contact-form" @submit.prevent="openDefaultMail">
           <div class="form-group">
             <label for="contact-name" class="form-label">Tu Nombre</label>
             <input
@@ -151,14 +147,7 @@ const openDefaultMail = () => {
           <div class="form-buttons">
             <button
               type="submit"
-              class="btn-action btn-gmail btn-large"
-            >
-              [ENVIAR CON GMAIL]
-            </button>
-            <button
-              type="button"
-              class="btn-action btn-secondary btn-large"
-              @click="openDefaultMail"
+              class="btn-action btn-primary btn-large"
             >
               [ENVIAR CON OTRO CORREO]
             </button>
@@ -373,12 +362,14 @@ const openDefaultMail = () => {
   padding: 0.75rem 1.1rem;
 }
 
+.btn-primary,
 .btn-gmail {
   background: var(--color-accent);
   color: #ffffff;
   border-color: var(--color-accent);
 }
 
+.btn-primary:hover,
 .btn-gmail:hover {
   background: var(--color-accent-light);
   box-shadow: 0 0 18px var(--color-accent-glow);
