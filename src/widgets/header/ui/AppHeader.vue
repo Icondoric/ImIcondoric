@@ -4,7 +4,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const isScrolled = ref(false)
 
 const navLinks = [
-  { label: 'INICIO', href: '#inicio' },
   { label: 'SOBRE MÍ', href: '#sobre-mi' },
   { label: 'PORTAFOLIO', href: '#portafolio' },
   { label: 'CONTACTO', href: '#contacto' },
